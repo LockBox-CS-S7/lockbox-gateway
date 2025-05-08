@@ -3,13 +3,19 @@ http:
 admin:
   port: 9876
   host: localhost
+
 apiEndpoints:
-  api:
-    host: vault-service
-    paths: '/vaults'
+  vault-api:
+    # You can leave host wildcarded so EG listens on any hostname
+    host: '*'
+    # match anything under /api
+    paths: '/vaults/*'
+
 serviceEndpoints:
-  httpbin:
-    url: 'https://httpbin.org'
+  vault-service:
+    # point at your vault-service container and port
+    url: 'http://vault-service:3000'
+
 policies:
   - basic-auth
   - cors
@@ -19,14 +25,13 @@ policies:
   - oauth2
   - proxy
   - rate-limit
+
 pipelines:
-  default:
+  vault-pipeline:
     apiEndpoints:
-      - api
+      - vault-api
     policies:
-    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
-    # - key-auth:
       - proxy:
           - action:
-              serviceEndpoint: httpbin 
+              serviceEndpoint: vault-service
               changeOrigin: true
