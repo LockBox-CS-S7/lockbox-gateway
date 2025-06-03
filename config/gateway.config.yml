@@ -42,14 +42,14 @@ policies:
 
 
 pipelines:
-  vault-pipeline:
-    apiEndpoints:
-      - vault-api
-    policies:
-      - proxy:
-          - action:
-              serviceEndpoint: vault-service
-              changeOrigin: true
+  # vault-pipeline:
+  #   apiEndpoints:
+  #     - vault-api
+  #   policies:
+  #     - proxy:
+  #         - action:
+  #             serviceEndpoint: vault-service
+  #             changeOrigin: true
   
   notification-pipeline:
     apiEndpoints:
