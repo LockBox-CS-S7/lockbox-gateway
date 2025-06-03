@@ -1,20 +1,34 @@
 http:
   port: 8080
+  
 admin:
   port: 9876
   host: localhost
 
 apiEndpoints:
-  vault-api:
-    # You can leave host wildcarded so EG listens on any hostname
+  # vault-api:
+  #   host: '*'
+  #   paths: '/vaults/*'
+    
+  notification-api:
     host: '*'
-    # match anything under /api
-    paths: '/vaults/*'
+    paths: '*'
+    
+  file-api:
+    host: '*'
+    paths: '/api/*'
+
 
 serviceEndpoints:
-  vault-service:
-    # point at your vault-service container and port
-    url: 'http://vault-service:3000'
+  # vault-service:
+  #   url: 'http://vault-service:3000/'
+    
+  notification-service:
+    url: 'http://lockbox-notification-service:8080/'
+    
+  file-service:
+    url: 'http://lockbox-file-service:8081/'
+
 
 policies:
   - basic-auth
@@ -26,6 +40,7 @@ policies:
   - proxy
   - rate-limit
 
+
 pipelines:
   vault-pipeline:
     apiEndpoints:
@@ -35,3 +50,22 @@ pipelines:
           - action:
               serviceEndpoint: vault-service
               changeOrigin: true
+  
+  notification-pipeline:
+    apiEndpoints:
+      - notification-api
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: notification-service
+              changeOrigin: true
+            
+  fileservice-pipeline:
+    apiEndpoints:
+      - file-api
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: file-service
+              changeOrigin: true
+              
