@@ -12,11 +12,11 @@ apiEndpoints:
     
   notification-api:
     host: '*'
-    paths: '*'
+    paths: '/notifications'
     
   file-api:
     host: '*'
-    paths: '/api/*'
+    paths: '/files'
 
 
 serviceEndpoints:
