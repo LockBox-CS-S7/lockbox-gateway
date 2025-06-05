@@ -27,7 +27,7 @@ serviceEndpoints:
     url: 'http://lockbox-notification-service:8080/'
     
   file-service:
-    url: 'http://lockbox-file-service:8081/'
+    url: 'http://lockbox-file-service:8080/'
 
 
 policies:
