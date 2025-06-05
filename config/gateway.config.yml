@@ -20,14 +20,11 @@ apiEndpoints:
 
 
 serviceEndpoints:
-  # vault-service:
-  #   url: 'http://vault-service:3000/'
-    
   notification-service:
-    url: 'http://lockbox-notification-service:8080/'
-    
+    url: 'http://lockbox-notification-service.default.svc.cluster.local:8080/'
+  
   file-service:
-    url: 'http://lockbox-file-service:8080/'
+    url: 'http://lockbox-file-service.default.svc.cluster.local:8080/'
 
 
 policies:
